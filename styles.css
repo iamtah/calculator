@@ -1,0 +1,108 @@
+*{
+    border-radius: 5px;
+    margin: 0px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    display: flex;
+    padding: 5vw;
+    justify-content: center;
+    background-color: darkseagreen;
+}
+
+#wrapper{
+    height: 560px;
+    width: 328px;
+    background-color: rgb(50, 52, 58);
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#screen{
+    background-color: rgb(39, 124, 89);
+    padding: 20px;
+    padding-top: 40px;
+    height: 50px;
+    width: 305px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-size: 50px;
+    font-weight: 800;
+    color: cornsilk;
+}
+
+#number-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    height: 260px;
+    width: 246px;
+
+}
+
+.number-button{
+    width: 80px;
+    height: 60px;
+    background-color: rgb(238, 157, 128);
+    font-size: 30px;
+    color: rgb(170, 17, 17);
+    font-weight: 700;
+    text-align: center;
+    border-radius: 0;
+    border: 1px solid rgb(70, 67, 65);
+    padding-top: 20px;
+}
+
+.functions,.oneOpt ,#equals-btn,#clear-btn,#del{
+    background-color: aquamarine;
+    color: darkmagenta;
+    width: 80px;
+    height: 60px;
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 0;
+    border: 1px solid rgb(70, 67, 65);
+    padding-top: 20px;
+}
+
+
+#equals-btn{
+    color: mediumvioletred;
+    background-color: lightskyblue;
+}
+
+#clear-btn{
+    color: ghostwhite;
+    background-color: darkgray;
+}
+
+.number-button:hover{
+    background-color: chocolate;
+    color: rgb(10, 202, 202);
+}
+
+#equals-btn:hover{
+    background-color: cornflowerblue;
+    color: crimson;
+}
+
+#clear-btn:hover{
+    background-color: dimgray;
+    color: honeydew;
+}
+
+.functions:hover, .oneOpt:hover{
+    background-color: rgb(106, 202, 173);
+    color: rgb(46, 43, 226);
+}
+
+#del{
+    background-color: rgb(226, 41, 41);
+    color: beige;
+}
+
+#del:hover{
+    background-color: rgb(95, 7, 7);
+}
