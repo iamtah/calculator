@@ -5,9 +5,8 @@ const clearBtn = document.getElementById("clear-btn");
 const equalsBtn = document.getElementById("equals-btn");
 const delBtn = document.getElementById("del");
 const screen = document.getElementById("screen");
-const oneOpt = document.querySelectorAll(".oneOpt"); //one operand calculations like sine, cosine
-
-let firstOperand="",secondOperant="",operator="",result="",lastresult="";
+const ans = document.getElementById("ans-btn"); 
+let firstOperand="",secondOperant="",operator="",result="",lastresult="",previousAction="",vForF=false,lastAnswer;
 
 function add(a,b){
     result= a+b;
@@ -34,10 +33,6 @@ function sine(a){
     return result.toFixed(7)
 }
 
-function cosine(a){
-    result=  Math.cos(a*Math.PI/180);
-    return result.toFixed(7)
-}
 
 
 
@@ -50,6 +45,8 @@ switch(operator){
         return   subtract(+a,+b);
         
     case "/":
+        if(b==0)
+        return "math err"
         return  divide(+a,+b);
         
     case "*":
@@ -61,22 +58,30 @@ function oneOperandOpt(operator,a){
         case "sin":
         return sine(a);
         
-    case "cos":
-        return cosine(a);
-    }
-}
+}}
 
 numberBtns.forEach((button) =>
     button.addEventListener("click", displayNumber))
 
-function cleanDisplay(){
-    screen.textContent = "";
- }
-
 function displayNumber(){
+    if(previousAction =="equals") {
+        screen.textContent ="";
+    }
+    if(vForF){
+        screen.textContent="";
+        vForF = false;
+    }
+    // if(previousAction =="func" && (["1","2","3","4","5","6","7","8","9","0"].includes(this.getAttribute('data-value')))){
+    //     if(screen.textContent==""){
+    //         screen.textContent += this.getAttribute('data-value');
+    //         return;
+    //     }
+    // }         
+
+
     if(screen.textContent.length>9 || screen.textContent.includes(".") && this.getAttribute('data-value')=== ".")
     return;
-   screen.textContent += this.getAttribute('data-value') 
+   screen.textContent += this.getAttribute('data-value')
 }
 
 delBtn.addEventListener("click", () =>
@@ -87,40 +92,59 @@ clearBtn.addEventListener("click", ()=>{
 firstOperand ="";
 secondOperant ="";
 operator="";
-screen.textContent = "";});
+screen.textContent = "";
+lastAnswer = lastresult;             //need to keep last result for ANS button
+lastresult ="";
+previousAction ="";
+});
 
-functionBtns.forEach((button) => button.addEventListener("click", () =>{
-firstOperand = parseInt(screen.textContent);
-if(operator!==""){
 
-    secondOperant= screen.textContent;
-    screen.textContent = operate(operator,firstOperand,secondOperant);
-    lastresult = screen.textContent;
-    return;
-}
-
-operator =  button.getAttribute('data-value');
-screen.textContent ="";
-}))
-
-equalsBtn.addEventListener("click", () =>{
-    secondOperant= screen.textContent;
-    if(operator==="cos"||operator==="sin"){
+functionBtns.forEach((button) => button.addEventListener("click", ()=>{
+   
+    if(previousAction =="func"){
         
-        screen.textContent = oneOperandOpt(operator,secondOperant);
-        firstOperand ="";
-        secondOperant ="";
-        operator="";
+        secondOperant =screen.textContent;
+        if(lastresult ==""){
+            lastresult = operate(operator,firstOperand,secondOperant);
+            screen.textContent= lastresult;
+            operator = button.getAttribute("data-value");
+            vForF = true;
+            return;
+        }
+        screen.textContent = operate(operator,lastresult,secondOperant);
+        lastresult= screen.textContent;
+        operator = button.getAttribute("data-value");
+        vForF = true;
+        
         return;
     }
-screen.textContent = operate(operator,firstOperand,secondOperant);
-firstOperand ="";
-secondOperant ="";
-operator="";
-})
-
-
-oneOpt.forEach( (button)=> button.addEventListener("click", ()=>{
-    operator = button.getAttribute("data-value");
+    operator =  button.getAttribute("data-value");
+    previousAction ="func";
+    firstOperand = screen.textContent;
     screen.textContent="";
 }))
+
+equalsBtn.addEventListener("click", function(){
+    
+    if(lastresult!==""){
+        if(previousAction=="func"){
+            secondOperant = screen.textContent;
+        }
+        lastresult =operate(operator,lastresult,secondOperant);
+        screen.textContent = lastresult;
+        return;
+    }
+    secondOperant =screen.textContent;
+    lastresult =operate(operator,firstOperand,secondOperant);
+    screen.textContent = lastresult;
+    previousAction ="equals";
+    
+    return;
+})
+
+ans.addEventListener("click", ()=>{
+    screen.textContent = lastAnswer;});
+
+
+
+

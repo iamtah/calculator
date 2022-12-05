@@ -106,3 +106,13 @@ body{
 #del:hover{
     background-color: rgb(95, 7, 7);
 }
+
+#ans-btn{
+    background-color: darkblue;
+    color: darkgrey;
+}
+
+#ans-btn:hover{
+    background-color: rgb(17, 17, 168);
+    color: rgb(197, 184, 184);
+}
